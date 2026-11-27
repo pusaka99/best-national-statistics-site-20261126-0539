@@ -50,8 +50,8 @@ function overview() {
         <p class="note">Figures updated ${META.updated}. ${META.note}</p>
       </section>`,
     draw() {
-      drawLineChart(document.getElementById('chart-pop'), POPULATION_TREND, { format: (v) => v.toFixed(1) });
-      drawBarChart(document.getElementById('chart-gdp'), GDP_GROWTH, { format: (v) => v.toFixed(2) + '%' });
+      drawLineChart(document.getElementById('chart-pop'), POPULATION_TREND, { format: (v) => v.toFixed(1), axis: (v) => v.toFixed(0) });
+      drawBarChart(document.getElementById('chart-gdp'), GDP_GROWTH, { format: (v) => v.toFixed(2) + '%', axis: (v) => v.toFixed(0) + '%' });
     },
   };
 }
@@ -72,7 +72,7 @@ function population() {
       </div>
       ${factCards(POPULATION_FACTS)}`,
     draw() {
-      drawLineChart(document.getElementById('chart-pop'), POPULATION_TREND, { format: (v) => v.toFixed(1) });
+      drawLineChart(document.getElementById('chart-pop'), POPULATION_TREND, { format: (v) => v.toFixed(1), axis: (v) => v.toFixed(0) });
     },
   };
 }
@@ -106,19 +106,19 @@ function economy() {
           unit.textContent = GDP_GROWTH.unit;
           source.textContent = GDP_GROWTH.source;
           note.textContent = 'The 2020 dip is the pandemic: the economy shrank 2.07% that year, then recovered.';
-          drawBarChart(canvas, GDP_GROWTH, { format: (v) => v.toFixed(2) + '%' });
+          drawBarChart(canvas, GDP_GROWTH, { format: (v) => v.toFixed(2) + '%', axis: (v) => v.toFixed(0) + '%' });
         } else if (which === 'inflation') {
           title.textContent = INFLATION.title;
           unit.textContent = INFLATION.unit;
           source.textContent = INFLATION.source;
           note.textContent = 'Prices spiked in 2022 when fuel subsidies were cut, then fell back below 2%.';
-          drawBarChart(canvas, INFLATION, { format: (v) => v.toFixed(2) + '%' });
+          drawBarChart(canvas, INFLATION, { format: (v) => v.toFixed(2) + '%', axis: (v) => v.toFixed(0) + '%' });
         } else {
           title.textContent = TRADE.title;
           unit.textContent = TRADE.unit;
           source.textContent = TRADE.source;
           note.textContent = 'Exports peaked in 2022 on high commodity prices. The 2024 surplus was US$31.0bn.';
-          drawGroupedBars(canvas, { label: 'Exports', points: TRADE.exports }, { label: 'Imports', points: TRADE.imports }, { format: (v) => '$' + v.toFixed(0) + 'bn' });
+          drawGroupedBars(canvas, { label: 'Exports', points: TRADE.exports }, { label: 'Imports', points: TRADE.imports }, { format: (v) => '$' + v.toFixed(0) + 'bn', axis: (v) => '$' + v.toFixed(0) + 'bn' });
         }
       }
       buttons.forEach((b) => b.addEventListener('click', () => show(b.dataset.metric)));
@@ -143,8 +143,8 @@ function wellbeing() {
       </section>
       ${factCards(WELLBEING_FACTS)}`,
     draw() {
-      drawLineChart(document.getElementById('chart-pov'), POVERTY, { format: (v) => v.toFixed(2) + '%' });
-      drawBarChart(document.getElementById('chart-unemp'), UNEMPLOYMENT, { format: (v) => v.toFixed(2) + '%' });
+      drawLineChart(document.getElementById('chart-pov'), POVERTY, { format: (v) => v.toFixed(2) + '%', axis: (v) => v.toFixed(1) + '%' });
+      drawBarChart(document.getElementById('chart-unemp'), UNEMPLOYMENT, { format: (v) => v.toFixed(2) + '%', axis: (v) => v.toFixed(0) + '%' });
     },
   };
 }
